@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Responsive Form</title>
+    <link rel="stylesheet" href="laptop.css" media="(min-width: 768px)">
+    <link rel="stylesheet" href="mobile.css" media="(max-width: 767px)">
+    <style>
+        h1 {
+            text-align: center;
+            font-family:fantasy
+        }
+        h2 {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        body {
+            background-color: green;
+            color: white;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .keypad button {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+        }
+        .keypad button:nth-child(10) {
+            grid-column: 2;
+        }
+        button {
+            background-color: white;
+            color: green;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        button[id="selectActionBtn"] {
+            width: min(75%, 250px);
+            font-size: 20px;
+            background-color: #4CAF50; /* Green */
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+        }
+        #houseNum {
+            font-size: 50px;
+            color: black;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lotus Grove Security Operations</h1>
+    <div id="houseNumberPage">
+        <h2>
+            Enter house number:
+        </h2>
+        <form>
+            <label id="houseNum">_</label>
+            <div class="keypad">
+                <button type="button" onclick="pressKey(1)">1</button>
+                <button type="button" onclick="pressKey(2)">2</button>
+                <button type="button" onclick="pressKey(3)">3</button>
+                <button type="button" onclick="pressKey(4)">4</button>
+                <button type="button" onclick="pressKey(5)">5</button>
+                <button type="button" onclick="pressKey(6)">6</button>
+                <button type="button" onclick="pressKey(7)">7</button>
+                <button type="button" onclick="pressKey(8)">8</button>
+                <button type="button" onclick="pressKey(9)">9</button>
+                <button type="button" onclick="pressKey(0)">0</button>
+                <button type="button" onclick="backspace()">←</button>
+            </div>
+            <button id="selectActionBtn" type="button" onclick="showOptions()">Next</button>
+        </form>
+    </div>
+    <div id="actionSelectionPage">
+        <h2 id="houseNumHeading">
+            House Number: 000
+        </h2>
+        <form>
+            <button type="submit">Call Home</button>
+            <button type="submit">Call Mobile</button>
+            <button type="submit">SMS Mobile</button>
+            <button type="submit">WhatsApp Mobile</button>
+        </form>
+    </div>
+
+    <script>
+        // Get the house number label
+        var houseNumber = document.getElementById('houseNum');
+
+        // Get the select action button
+        var selectActionBtn = document.getElementById('selectActionBtn');
+
+        // Hide action selection page by default and show house number page
+        var houseNumberPage = document.getElementById('houseNumberPage');
+        houseNumberPage.style.display = 'block';
+        var actionSelectionPage = document.getElementById('actionSelectionPage');
+        actionSelectionPage.style.display = 'none';
+
+        function pressKey(num) {
+            if (houseNumber.textContent.length < 3 || houseNumber.textContent == '_') {
+                if (houseNumber.textContent == '_') {
+                    houseNumber.textContent = num.toString();
+                } else {
+                    houseNumber.textContent += num.toString();
+                }
+
+                // Enable the button when the length is 3
+                if (houseNumber.textContent.length === 3) {
+                    selectActionBtn.style.display = 'block';
+                }
+            }
+        }
+        
+        function backspace() {
+            if (houseNumber.textContent.length > 1) {
+                houseNumber.textContent = houseNumber.textContent.slice(0, -1);
+            } else {
+                houseNumber.textContent = '_';
+            }
+            selectActionBtn.style.display = 'none';
+        }
+
+        function showOptions() {
+            houseNumberPage.style.display = 'none';
+            var houseNumHeading = document.getElementById('houseNumHeading');
+            houseNumHeading.textContent = 'House Number: ' + houseNumber.textContent;
+            actionSelectionPage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
