@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Lotus Grove Security</title>
-    <link rel="stylesheet" href="laptop.css" media="(min-width: 768px)">
+<!--     <link rel="stylesheet" href="laptop.css" media="(min-width: 768px)">
     <link rel="stylesheet" href="mobile.css" media="(max-width: 767px)">
-    <style>
+ -->    <style>
         h1 {
             text-align: center;
             font-family:fantasy
@@ -62,10 +62,17 @@
             margin-bottom: 20px;
             font-family: monospace;
         }
+        .phoneListItem {
+            font-size: x-large;
+            color: white;
+            font-family: monospace;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>Lotus Grove Security Operations</h1>
+
     <div id="houseNumberPage">
         <h2>
             Enter house number:
@@ -88,17 +95,8 @@
             <button id="selectActionBtn" type="button" onclick="showOptions()">Next</button>
         </form>
     </div>
-    <div id="actionSelectionPage">
-        <h2 id="houseNumHeading">
-            House Number: 000
-        </h2>
-        <form>
-            <button type="submit">Call Home</button>
-            <button type="submit">Call Mobile</button>
-            <button type="submit">SMS Mobile</button>
-            <button type="submit">WhatsApp Mobile</button>
-        </form>
-    </div>
+
+    <div id="actionSelectionPage"></div>
 
     <script>
         // Get the house number label
@@ -138,10 +136,33 @@
         }
 
         function showOptions() {
-            houseNumberPage.style.display = 'none';
-            var houseNumHeading = document.getElementById('houseNumHeading');
-            houseNumHeading.textContent = 'House Number: ' + houseNumber.textContent;
             actionSelectionPage.style.display = 'block';
+            houseNumberPage.style.display = 'none';
+
+            var label = document.createElement("h2");
+            label.textContent = 'House Number: ' + houseNumber.textContent;
+            actionSelectionPage.appendChild(label);
+
+            var phones = lookupPhones(houseNumber.textContent);
+            phones.forEach(ph => {
+                var item = document.createElement("p");
+                item.setAttribute("class", "phoneListItem");
+                item.textContent = "Call " + ph.label + ": ";
+                actionSelectionPage.appendChild(item);                     
+                var anchor = document.createElement("a");
+                item.appendChild(anchor);
+                anchor.setAttribute("href", "tel:" + ph.number.replace(/\s/g, ''));
+                anchor.textContent = ph.number;      
+            });
+        }
+
+        function lookupPhones(houseNum) {
+            return [
+                    { id: "home", label: "Home", number: "011 273 3719" },
+                    { id: "sanjiva", label: "Sanjiva", number: "077 787 6880" },
+                    { id: "assistant", label: "Thilaxshana", number: "077 777 7777" },
+                    { id: "security", label: "Dharmasena", number: "071 000 0000" }
+            ];
         }
     </script>
 </body>
