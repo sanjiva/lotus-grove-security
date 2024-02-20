@@ -26,44 +26,37 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 0.5em;
+            margin-bottom: 1em;
         }
         .keypad button {
-            width: 50px;
-            height: 50px;
-            font-size: 20px;
+            width: 3em;
+            height: 3em;
+            font-size: 2em;
         }
         .keypad button:nth-child(10) {
             grid-column: 2;
         }
-        button {
-            background-color: white;
-            color: green;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        button[id="selectActionBtn"] {
-            width: min(75%, 250px);
-            font-size: 20px;
+      
+        #selectActionBtn {
+            width: min(75%, 9.5em);
+            font-size: 2em;
             background-color: #4CAF50; /* Green */
             color: black;
-            padding: 14px 20px;
-            margin: 8px 0;
+            padding: 0.5em;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
             display: none;
         }
-        #houseNum {
-            font-size: 50px;
+        .house {
+            font-size: 3em;
             color: black;
-            margin-bottom: 20px;
+            margin-bottom: 1em;
             font-family: monospace;
+            font-weight: bold;
         }
         .phoneListItem {
-            font-size: x-large;
+            font-size: 2em;
             color: white;
             font-family: monospace;
             text-align: center;
@@ -74,11 +67,11 @@
     <h1>Lotus Grove Security Operations</h1>
 
     <div id="houseNumberPage">
-        <h2>
+        <h2 class="house">
             Enter house number:
         </h2>
         <form>
-            <label id="houseNum">_</label>
+            <label id="houseNum" class="house">_</label>
             <div class="keypad">
                 <button type="button" onclick="pressKey(1)">1</button>
                 <button type="button" onclick="pressKey(2)">2</button>
@@ -141,6 +134,7 @@
 
             var label = document.createElement("h2");
             label.textContent = 'House Number: ' + houseNumber.textContent;
+            label.setAttribute("class", "house");
             actionSelectionPage.appendChild(label);
 
             var phones = lookupPhones(houseNumber.textContent);
