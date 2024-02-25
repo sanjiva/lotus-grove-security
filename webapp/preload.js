@@ -7,7 +7,7 @@ function loadData() {
 
 function lookupPhones(houseNum) {
     var phoneNums;
-    var url = "/choreo-apis/hoyc/gate-bff/endpoint-1234-6e3/v1.0";
+    var url = "/choreo-apis/hoyc/gate-bff/endpoint-1234-6e3/v1.0/housePhones/" + houseNum;
     fetch(url)
         .then(response => {
             if (response.ok) {
