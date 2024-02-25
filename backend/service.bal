@@ -12,6 +12,7 @@ type HousePhone record {
 service / on hl {
 
     resource function get housePhones/[int number]() returns HousePhone[] {
+        log:printInfo("Returning phone # for house number " + number.toString());
         return [
                     { id: "home", label: "Home", number: "011 273 3719" },
                     { id: "sanjiva", label: "Sanjiva", number: "077 787 6880" },
